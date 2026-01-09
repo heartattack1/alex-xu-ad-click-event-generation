@@ -1,0 +1,74 @@
+openapi: 3.0.3
+info:
+  title: Ad Click Aggregation Query API
+  version: 1.0.0
+servers:
+  - url: http://localhost:8080
+paths:
+  /aggregated_count:
+    get:
+      summary: Get aggregated count for an ad per minute
+      parameters:
+        - in: query
+          name: ad_id
+          required: true
+          schema:
+            type: string
+        - in: query
+          name: start_minute
+          required: true
+          schema:
+            type: string
+            description: ISO-8601 minute timestamp
+        - in: query
+          name: end_minute
+          required: true
+          schema:
+            type: string
+            description: ISO-8601 minute timestamp
+      responses:
+        "200":
+          description: Aggregated counts
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    ad_id:
+                      type: string
+                    click_minute:
+                      type: string
+                    count:
+                      type: integer
+  /popular_ads:
+    get:
+      summary: Get top N ads for a given minute
+      parameters:
+        - in: query
+          name: minute
+          required: true
+          schema:
+            type: string
+            description: ISO-8601 minute timestamp
+        - in: query
+          name: limit
+          required: false
+          schema:
+            type: integer
+            default: 10
+      responses:
+        "200":
+          description: Top ads
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    ad_id:
+                      type: string
+                    count:
+                      type: integer

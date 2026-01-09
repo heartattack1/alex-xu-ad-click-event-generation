@@ -1,0 +1,13 @@
+{
+  "type": "record",
+  "name": "ClickEvent",
+  "namespace": "com.adstream.contracts",
+  "fields": [
+    {"name": "event_id", "type": "string"},
+    {"name": "ad_id", "type": "string"},
+    {"name": "click_ts", "type": "long"},
+    {"name": "user_id", "type": "string"},
+    {"name": "ip", "type": "string"},
+    {"name": "country", "type": "string"}
+  ]
+}

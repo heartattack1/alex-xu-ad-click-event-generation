@@ -1,0 +1,14 @@
+C4Container
+Person(user, "Analyst")
+System_Boundary(system, "Ad Click Aggregation") {
+  Container(producer, "Event Producer", "Python", "Generates click events")
+  Container(kafka, "Redpanda", "Kafka", "Event streaming")
+  Container(aggregator, "Stream Aggregator", "Kafka Streams", "Dedup + aggregate")
+  Container(db, "ClickHouse", "Columnar DB", "Aggregated metrics")
+  Container(query, "Query Service", "FastAPI", "Query API")
+}
+Rel(user, query, "Runs queries")
+Rel(producer, kafka, "Publishes ClickEvent")
+Rel(aggregator, kafka, "Consumes ClickEvent")
+Rel(aggregator, db, "Writes aggregates")
+Rel(query, db, "Reads aggregates")
