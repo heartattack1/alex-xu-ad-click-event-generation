@@ -72,3 +72,13 @@
 ## Observability
 - Lag по очереди, watermark delay, rate дубликатов, точность агрегаций.
 - SLO: freshness агрегатов, error budget, drop/late rate.
+
+## Локальный запуск
+```bash
+docker compose -f infra/docker-compose.yml up --build
+```
+
+## Документация
+- Контракты: `contracts/click-event.avsc`, `contracts/openapi.yaml`
+- Диаграммы: `docs/c4-context.mmd`, `docs/c4-container.mmd`, `docs/c4-component-aggregator.mmd`
+- Инструкции: `docs/README.md`

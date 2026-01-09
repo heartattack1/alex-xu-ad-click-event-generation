@@ -1,0 +1,12 @@
+C4Component
+Container_Boundary(aggregator, "Stream Aggregator") {
+  Component(consumer, "ClickEvent Consumer", "Kafka Streams", "Consumes Avro ClickEvent")
+  Component(dedup, "Deduplication Store", "State Store", "Filters duplicate event_id")
+  Component(windowedAgg, "Windowed Aggregator", "Kafka Streams", "Tumbling 1m counts")
+  Component(topn, "Top-N Materializer", "Kafka Streams", "Top ads per minute")
+  Component(chSink, "ClickHouse Writer", "JDBC", "Idempotent writes")
+}
+Rel(consumer, dedup, "Checks event_id")
+Rel(dedup, windowedAgg, "Emits unique events")
+Rel(windowedAgg, topn, "Updates top ads")
+Rel(windowedAgg, chSink, "Writes aggregates")
